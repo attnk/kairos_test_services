@@ -97,4 +97,28 @@ public class BalanceBracketBusinessTest {
 		assertFalse(result);
 	}
 	
+	// --- TESTES GENÉRICOS PARA VALIDAR QUALQUER ENTRADA ---
+	@Test
+	public void shouldReturnTrueWhenBracketSequenceIsValid() {
+		// GIVEN
+		String input = "()";
+		
+		// WHEN
+		boolean result = business.checkBracket(input);
+		
+		// THEN
+		assertTrue(result);
+	}
+	
+	@Test
+	public void shouldReturnFalseWhenBracketSequenceIsInvalid() {
+		// GIVEN
+		String input = "(";
+		
+		// WHEN
+		boolean result = business.checkBracket(input);
+		
+		// THEN
+		assertFalse(result);
+	}
 }
