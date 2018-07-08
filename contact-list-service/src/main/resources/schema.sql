@@ -1,0 +1,22 @@
+DROP TABLE IF EXISTS person;
+DROP TABLE IF EXISTS contact;
+
+CREATE TABLE contact
+(
+	id BIGINT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	phone VARCHAR(255),
+	email VARCHAR(255),
+	whats_app VARCHAR(255),
+	created_at TIMESTAMP,
+	modified_at TIMESTAMP
+);
+
+CREATE TABLE person
+(
+	id BIGINT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	contatc_id BIGINT NOT NULL,
+	name VARCHAR(255),
+	created_at TIMESTAMP,
+	modified_at TIMESTAMP,
+	FOREIGN KEY (contatc_id) REFERENCES contact(id)
+);
