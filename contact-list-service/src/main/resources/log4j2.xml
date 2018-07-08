@@ -3,8 +3,8 @@
     <Properties>
         <!-- Layout http://logging.apache.org/log4j/2.x/manual/layouts.html -->
         <Property name="LOG_PATTERN">[%d{DEFAULT}] - [%5p] %c --- %m%n</Property>
-        <Property name="BASE_PATH">/data/logs/acme</Property>
-        <Property name="ROLLING_PATTERN">-%d{dd-MM-yyyy}.log.gz</Property>
+        <Property name="BASE_PATH">/data/logs/contact-list/app.log</Property>
+        <Property name="ROLLING_PATTERN">app-%d{dd-MM-yyyy}.log.gz</Property>
     </Properties>
 
     <!-- Appenders: http://logging.apache.org/log4j/2.x/manual/appenders.html -->
@@ -12,7 +12,7 @@
         <Console name="CONSOLE">
             <PatternLayout pattern="${LOG_PATTERN}"/>
         </Console>
-        <RollingFile name="APPLICATION" fileName="${BASE_PATH}/acme.log" filePattern="${BASE_PATH}/app${ROLLING_PATTERN}">
+        <RollingFile name="APPLICATION" fileName="${BASE_PATH}" filePattern="${BASE_PATH}/app${ROLLING_PATTERN}">
             <PatternLayout pattern="${LOG_PATTERN}"/>
 
             <Policies>
