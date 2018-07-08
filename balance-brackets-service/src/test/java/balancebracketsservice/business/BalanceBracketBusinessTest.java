@@ -99,7 +99,7 @@ public class BalanceBracketBusinessTest {
 	
 	// --- TESTES GENÉRICOS PARA VALIDAR QUALQUER ENTRADA ---
 	@Test
-	public void shouldReturnTrueWhenBracketSequenceIsValid() {
+	public void shouldReturnTrueWhenAnyBracketSequenceIsValid() {
 		// GIVEN
 		String input = "()";
 		
@@ -111,7 +111,7 @@ public class BalanceBracketBusinessTest {
 	}
 	
 	@Test
-	public void shouldReturnFalseWhenBracketSequenceIsInvalid() {
+	public void shouldReturnFalseWhenAnyBracketSequenceIsInvalid() {
 		// GIVEN
 		String input = "(";
 		
