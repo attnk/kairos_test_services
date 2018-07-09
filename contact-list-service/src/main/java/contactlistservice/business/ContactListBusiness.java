@@ -122,13 +122,13 @@ public class ContactListBusiness {
 	
 	/**
 	 * 
-	 * @param cotact
+	 * @param contact
 	 * @return
 	 * @throws BusinessException
 	 */
-	public Contact updateContact(Contact cotact) throws BusinessException {
+	public Contact updateContact(Contact contact) throws BusinessException {
 		try {
-			return contactService.saveUpdate(cotact);
+			return contactService.saveUpdate(contact);
 		} catch(Exception e) {
 			LOG.error("Problema ao tentar atualizar Contact", e);
 			throw new BusinessException(e);
@@ -162,6 +162,5 @@ public class ContactListBusiness {
 			throw new BusinessException(e);
 		}
 	}
-	
 	
 }

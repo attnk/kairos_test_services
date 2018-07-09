@@ -15,7 +15,7 @@ public class ContactTemplateLoader implements TemplateLoader {
 	public void load() {
 		Fixture.of(Contact.class).addTemplate("default", new Rule() {{
 			add("id", 0L);
-			add("type", null);
+			add("type", "");
 			add("value", "");
 			add("createdAt", now());
 			add("modifiedAt", now());
@@ -24,7 +24,7 @@ public class ContactTemplateLoader implements TemplateLoader {
 
 		Fixture.of(Contact.class).addTemplate("person-1-contact-EMAIL", new Rule() {{
 			add("id", 1L);
-			add("type", ContactType.EMAIL);
+			add("type", "EMAIL");
 			add("value", "testes@testes.com");
 			add("createdAt", now());
 			add("modifiedAt", now());
@@ -33,7 +33,7 @@ public class ContactTemplateLoader implements TemplateLoader {
 		
 		Fixture.of(Contact.class).addTemplate("person-1-contact-PHONE", new Rule() {{
 			add("id", 2L);
-			add("type", ContactType.PHONE);
+			add("type", "PHONE");
 			add("value", "011 5689-5314");
 			add("createdAt", now());
 			add("modifiedAt", now());
@@ -42,7 +42,7 @@ public class ContactTemplateLoader implements TemplateLoader {
 		
 		Fixture.of(Contact.class).addTemplate("person-1-contact-WHATSAPP", new Rule() {{
 			add("id", 3L);
-			add("type", ContactType.WHATS_APP);
+			add("type", "WHATS_APP");
 			add("value", "011 99631-4627");
 			add("createdAt", now());
 			add("modifiedAt", now());
@@ -50,7 +50,7 @@ public class ContactTemplateLoader implements TemplateLoader {
 		}});
 		
 		Fixture.of(Contact.class).addTemplate("person-1-NEW-contact-EMAIL", new Rule() {{
-			add("type", ContactType.EMAIL);
+			add("type", "EMAIL");
 			add("value", "testes@testes.com");
 			add("createdAt", now());
 			add("modifiedAt", now());
@@ -59,7 +59,7 @@ public class ContactTemplateLoader implements TemplateLoader {
 		
 		Fixture.of(Contact.class).addTemplate("person-1-UPDATE-contact-EMAIL", new Rule() {{
 			add("id", 1L);
-			add("type", ContactType.EMAIL);
+			add("type", "EMAIL");
 			add("value", "testes1234@testes.com");
 			add("createdAt", now());
 			add("modifiedAt", now());
