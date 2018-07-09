@@ -33,7 +33,7 @@ public class Contact implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long Id;
+	private long id;
 	
 	@Column
 	private ContactType type;
@@ -57,11 +57,11 @@ public class Contact implements Serializable {
 	private Person person;
 
 	public long getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(long id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public Person getPerson() {
