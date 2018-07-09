@@ -12,6 +12,19 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.deser.std.DateDeserializers.DateDeserializer;
+
+import contactlistservice.entity.converter.DateSerializer;
+import contactlistservice.enums.ContactType;
+
+@JsonInclude(Include.NON_NULL)
+@JsonPropertyOrder({"type", "value", "createdAt", "modifiedAt"})
 @Entity
 @Table(name = "contact")
 public class Contact implements Serializable {
@@ -23,20 +36,22 @@ public class Contact implements Serializable {
 	private long Id;
 	
 	@Column
-	private String phone;
+	private ContactType type;
 	
 	@Column
-	private String email;
+	private String value;
 	
-	@Column(name = "whats_app")
-	private String whatsApp;
-	
+	@JsonSerialize(using = DateSerializer.class)
+	@JsonDeserialize(using = DateDeserializer.class)
 	@Column(name = "created_at")
 	private LocalDateTime createdAt;
 	
+	@JsonSerialize(using = DateSerializer.class)
+	@JsonDeserialize(using = DateDeserializer.class)
 	@Column(name = "modified_at")
 	private LocalDateTime modifiedAt;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "person_id")
 	private Person person;
@@ -47,30 +62,6 @@ public class Contact implements Serializable {
 
 	public void setId(long id) {
 		Id = id;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getWhatsApp() {
-		return whatsApp;
-	}
-
-	public void setWhatsApp(String whatsApp) {
-		this.whatsApp = whatsApp;
 	}
 
 	public Person getPerson() {
@@ -95,64 +86,6 @@ public class Contact implements Serializable {
 
 	public void setModifiedAt(LocalDateTime modifiedAt) {
 		this.modifiedAt = modifiedAt;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (Id ^ (Id >>> 32));
-		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((modifiedAt == null) ? 0 : modifiedAt.hashCode());
-		result = prime * result + ((person == null) ? 0 : person.hashCode());
-		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
-		result = prime * result + ((whatsApp == null) ? 0 : whatsApp.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Contact other = (Contact) obj;
-		if (Id != other.Id)
-			return false;
-		if (createdAt == null) {
-			if (other.createdAt != null)
-				return false;
-		} else if (!createdAt.equals(other.createdAt))
-			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (modifiedAt == null) {
-			if (other.modifiedAt != null)
-				return false;
-		} else if (!modifiedAt.equals(other.modifiedAt))
-			return false;
-		if (person == null) {
-			if (other.person != null)
-				return false;
-		} else if (!person.equals(other.person))
-			return false;
-		if (phone == null) {
-			if (other.phone != null)
-				return false;
-		} else if (!phone.equals(other.phone))
-			return false;
-		if (whatsApp == null) {
-			if (other.whatsApp != null)
-				return false;
-		} else if (!whatsApp.equals(other.whatsApp))
-			return false;
-		return true;
 	}
 
 }

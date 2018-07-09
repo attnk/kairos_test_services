@@ -15,12 +15,24 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.deser.std.DateDeserializers.DateDeserializer;
+
+import contactlistservice.entity.converter.DateSerializer;
+
+
+@JsonInclude(Include.NON_NULL)
+@JsonPropertyOrder({"id", "name", "createdAt", "modifiedAt", "contacts"})
 @Entity
 @Table(name = "person")
 public class Person implements Serializable {
 
 	private static final long serialVersionUID = -5876354531062599353L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
@@ -28,15 +40,18 @@ public class Person implements Serializable {
 	@Column
 	private String name;
 	
+	@JsonSerialize(using = DateSerializer.class)
+	@JsonDeserialize(using = DateDeserializer.class)
 	@Column(name = "created_at")
 	private LocalDateTime createdAt = LocalDateTime.now(ZoneId.of("America/Sao_Paulo"));
 	
+	@JsonSerialize(using = DateSerializer.class)
+	@JsonDeserialize(using = DateDeserializer.class)
 	@Column(name = "modified_at")
 	private LocalDateTime modifiedAt = LocalDateTime.now(ZoneId.of("America/Sao_Paulo"));
 	
 	@OneToMany
 	@JoinColumn(name= "person_id")
-	@Column(name = "contact_id")
 	private List<Contact> contacts = new ArrayList<>();
 
 	public long getId() {
