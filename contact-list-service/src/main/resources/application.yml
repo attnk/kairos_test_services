@@ -7,6 +7,10 @@ info:
 
 server:
   port: 8080
+  compression:
+    enable: true
+    min-reponnse-size: 2048
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
 
 management:
   endpoints:
