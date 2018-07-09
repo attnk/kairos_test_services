@@ -38,16 +38,16 @@ public class ContactService {
 
 	/**
 	 * 
-	 * @param newContact
+	 * @param contact
 	 * @return
 	 * @throws RepositoryException
 	 * @throws ServiceException 
 	 */
-	public Contact saveUpdate(Contact newContact) 
+	public Contact saveUpdate(Contact contact) 
 			throws RepositoryException, ServiceException {
 		try {
-			notNull(newContact, "O Contato não pode ser nulo!");
-			return contactRepo.save(newContact);
+			notNull(contact, "O Contato não pode ser nulo!");
+			return contactRepo.save(contact);
 		} catch (IllegalArgumentException e) {
 			throw new ServiceException(e);
 		} catch (Exception e) {
