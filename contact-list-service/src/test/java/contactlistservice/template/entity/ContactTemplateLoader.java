@@ -48,6 +48,23 @@ public class ContactTemplateLoader implements TemplateLoader {
 			add("modifiedAt", now());
 			add("person", one(Person.class, "person-1-repo"));
 		}});
+		
+		Fixture.of(Contact.class).addTemplate("person-1-NEW-contact-EMAIL", new Rule() {{
+			add("type", ContactType.EMAIL);
+			add("value", "testes@testes.com");
+			add("createdAt", now());
+			add("modifiedAt", now());
+			add("person", one(Person.class, "person-1-repo"));
+		}});
+		
+		Fixture.of(Contact.class).addTemplate("person-1-UPDATE-contact-EMAIL", new Rule() {{
+			add("id", 1L);
+			add("type", ContactType.EMAIL);
+			add("value", "testes1234@testes.com");
+			add("createdAt", now());
+			add("modifiedAt", now());
+			add("person", one(Person.class, "person-1-repo"));
+		}});
 	}
 
 }

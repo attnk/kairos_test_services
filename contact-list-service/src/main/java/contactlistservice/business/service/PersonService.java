@@ -43,20 +43,33 @@ public class PersonService {
 	 * @throws RepositoryException
 	 * @throws ServiceException
 	 */
-	public Person saveNewPerson(Person person) 
+	public Person saveUpdate(Person person) 
 			throws RepositoryException, ServiceException {
 		try {
-			notNull(person, "Person must not to be null!");
+			notNull(person, "Person não pode ser nulo!");
 			return personRepo.save(person);
 		} catch (IllegalArgumentException e) {
 			throw new ServiceException(e);
 		} catch (Exception e) {
-			throw new RepositoryException("", e);
+			throw new RepositoryException(
+					"Problemas ao tentnar salvar o Person", 
+					e);
 		}
 	}
-	
-	// UPDATE - person by id 
-	
-	// DELETE - person by id
+
+	/**
+	 * 
+	 * @param id
+	 * @throws RepositoryException
+	 */
+	public void delete(long id) throws RepositoryException {
+		try {
+			personRepo.deleteById(id);
+		} catch (Exception e) {
+			throw new RepositoryException(
+					"Problemas ao tentnar remover o Person de id:"+ id, 
+					e);
+		}
+	}
 	
 }

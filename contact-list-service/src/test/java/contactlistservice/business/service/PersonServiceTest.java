@@ -4,6 +4,10 @@ import static br.com.six2six.fixturefactory.loader.FixtureFactoryLoader.loadTemp
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
@@ -15,6 +19,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import contactlistservice.entity.Person;
@@ -88,7 +93,7 @@ public class PersonServiceTest {
 		when(personRepository.save(newPerson.get())).thenReturn(person.get());
 		
 		// WHEN
-		result = service.saveNewPerson(newPerson.get());
+		result = service.saveUpdate(newPerson.get());
 		
 		// THEN
 		assertNotNull(result);
@@ -103,7 +108,7 @@ public class PersonServiceTest {
 		
 		try {
 			// WHEN
-			result = service.saveNewPerson(null);
+			result = service.saveUpdate(null);
 		} catch (Exception e) {
 			// THEN
 			assertNull(result);
@@ -122,7 +127,7 @@ public class PersonServiceTest {
 		
 		try {
 			// WHEN
-			result = service.saveNewPerson(newPerson.get());
+			result = service.saveUpdate(newPerson.get());
 		} catch (Exception e) {
 			// THEN
 			assertNull(result);
@@ -131,7 +136,56 @@ public class PersonServiceTest {
 	}
 	
 	// UPDATE - person by id 
+	@Test
+	public void shouldUpdatePersonUpdateDataWhennEverythingIsOk() 
+			throws RepositoryException, ServiceException {
+		// GIVEN
+		Optional<Person> updatePerson = Optional.of(MockTemplate.getUpdatePersonOne());
+		Person result = null;
+		
+		when(personRepository.save(updatePerson.get())).thenReturn(updatePerson.get());
+		
+		// WHEN
+		result = service.saveUpdate(updatePerson.get());
+		
+		// THEN
+		assertNotNull(result);
+		assertTrue(updatePerson.get().equals(result));
+	}
 	
 	// DELETE - person by id
+	@Test
+	public void shouldDeletePersonByIdWhenEverythingIsOk() 
+			throws RepositoryException {
+		// GIVEN
+		long id = MockTemplate.getPersonOne().getId();
+		
+		doNothing().when(personRepository).deleteById(id);
+		
+		// WHEN
+		service.delete(id);
+		
+		// THEN
+		verify(personRepository, times(1)).deleteById(id);
+		verifyNoMoreInteractions(personRepository);
+	}
 	
+	@Test(expected = RepositoryException.class)
+	public void shouldDeletePersonByIdThrowRepositoryExceptionWhenRepositoryThrowAnyException() 
+			throws RepositoryException {
+		// GIVEN
+		long id = MockTemplate.getPersonOne().getId();
+		
+		Mockito.doThrow(new IllegalArgumentException("ERRO!")).when(personRepository).deleteById(id);
+		
+		try {
+			// WHEN
+			service.delete(id);
+		} catch (Exception e) {
+			// THEN
+			verify(personRepository, times(1)).deleteById(id);
+			verifyNoMoreInteractions(personRepository);
+			throw e;
+		}
+	}
 }

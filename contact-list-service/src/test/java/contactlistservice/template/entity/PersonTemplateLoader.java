@@ -47,5 +47,16 @@ public class PersonTemplateLoader implements TemplateLoader {
 					"person-1-contact-PHONE", 
 					"person-1-contact-WHATSAPP"));
 		}});
+		
+		Fixture.of(Person.class).addTemplate("person-1-update", new Rule() {{
+			add("id", 1L);
+			add("name", "Teste123");
+			add("createdAt", now());
+			add("modifiedAt", now());
+			add("contacts", has(3).of(Contact.class, 
+					"person-1-contact-EMAIL", 
+					"person-1-contact-PHONE", 
+					"person-1-contact-WHATSAPP"));
+		}});
 	}
 }

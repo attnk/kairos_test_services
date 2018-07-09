@@ -1,10 +1,13 @@
 package contactlistservice.business.service;
 
+import static org.springframework.util.Assert.notNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import contactlistservice.entity.Contact;
 import contactlistservice.exception.RepositoryException;
+import contactlistservice.exception.ServiceException;
 import contactlistservice.repository.ContactRepository;
 
 @Service
@@ -32,11 +35,41 @@ public class ContactService {
 					e);
 		}
 	}
-	
-	// ADD - contact to person
-	
-	// UPDATE - contact by id
-	
-	// DELETE - contact by id
+
+	/**
+	 * 
+	 * @param newContact
+	 * @return
+	 * @throws RepositoryException
+	 * @throws ServiceException 
+	 */
+	public Contact saveUpdate(Contact newContact) 
+			throws RepositoryException, ServiceException {
+		try {
+			notNull(newContact, "O Contato não pode ser nulo!");
+			return contactRepo.save(newContact);
+		} catch (IllegalArgumentException e) {
+			throw new ServiceException(e);
+		} catch (Exception e) {
+			throw new RepositoryException(
+					"Problemas ao salvar um novo Contato",
+					e);
+		}
+	}
+
+	/**
+	 * 
+	 * @param id
+	 * @throws RepositoryException
+	 */
+	public void delete(long id) throws RepositoryException {
+		try {
+			contactRepo.deleteById(id);
+		} catch (Exception e) {
+			throw new RepositoryException(
+					"Problemas ao remover um Contato de id:"+id,
+					e);
+		}
+	}
 	
 }
