@@ -7,7 +7,8 @@ Exercícios em Java com Spring Boot.
 * Java 8
 * Spring Boot 2.0
 * H2 (no projeto: contact-list)
-* Fixture-factory (para gerar massa de dados nos testes)
+* Fixture-factory (para gerar massa de dados nos testes, no projeto: contact-list)
+* Maven
 
 ### Projetos
 Existem dois projetos dentro deste repositório, sedo eles:
